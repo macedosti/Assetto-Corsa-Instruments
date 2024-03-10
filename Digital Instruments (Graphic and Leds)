@@ -1,0 +1,305 @@
+- Fuel warning LED
+
+[FUEL_WARNING_n]
+OBJECT_NAME=INDICATOR_FUEL
+FUEL_SWITCH=5
+
+- RPM Analog/Digital
+
+[ITEM_n]
+PARENT=DISPLAY_DATA
+POSITION=0,0,0
+TYPE=RPM_GRAPH
+WIDTH=0.1
+HEIGHT=0.01
+TEXTURE_BASE=LCD_OFF.png
+TEXTURE_TOP=LCD.png
+COLOR=255,255,255,255
+INTENSITY=2.5
+RPM_MIN=1000
+RPM_MAX=10000
+
+PAREN - parent object to which is element bound
+POSITION - position relative to the parent object
+TYPE - type of the object
+WIDTH - width of the graph in meters (width of the png file)
+HEIGHT - height of the graph in meters (height of the png file)
+TEXTURE_BASE - this is base texutre when graph is OFF (png file)
+TEXTURE_TOP - this is texture when graph is full/ON (png file)
+COLOR - color of the font in Red,Green,Blue,Alpha
+INTENSITY - intensity of illumination
+RPM_MIN - minimum RPM that graph will show
+RPM_MAX - maximum RPM that graph will show
+
+- Speedo Analog/Digital
+
+[SPEED_SERIE_n]
+PREFIX=TAG_SPEED_
+START_SPEED=0
+END_SPEED=100
+LED_COUNT=10
+
+START_SPEED - speed at wich LEDs are starting to glow
+END_SPEED - speed at wich all LEDs are glowing
+LED_COUNT - number of LEDs
+
+;How PREFIX Works, you need create a numered sequence of the objects to appear on your dashboard
+;for it you need start from 0
+;example:
+;LED_0
+;LED_1
+;LED_2
+
+;on PREFIX= you will place "LED_"
+
+;so the command will be
+
+;PREFIX=LED_
+
+- LED single RPM value
+
+[LED_n]
+OBJECT_NAME=RPM_LED_x
+RPM_SWITCH=5000
+EMISSIVE=255,0,0
+DIFFUSE=0.1
+BLINK_SWITCH=7500
+BLINK_HZ=10
+
+RPM_SWITCH - RPM when mesh changes color
+EMISSIVE - what color will mesh shine
+DIFFUSE - same as diffuse on all meshes in 3D model
+BLINK_SWITCH - RPM when mesh starts blinking
+BLINK_HZ - blink frequency in Hz
+
+- LED Sequence RPM value
+
+[RPM_SERIE_n]
+PREFIX=RPM_LED_LIMITER_
+START_INDEX=0
+END_INDEX=10
+RPM_START=1000
+RPM_END=10000
+
+- this is used when mesh is used as LED lights with same name, but different number at the end (series of LED)
+PREFIX - name that all mesh parts use, and is same for all object whith numeral suffix
+START_INDEX - after name, first number used in series
+END_INDEX - after name, last number used in series
+RPM_START - when RPM serie starts to shine
+RPM_END - when last of the RPM serie is turned on
+
+
+- LED Delta bicolor
+
+[PERF_LED_n]
+OBJECT_NAME=INDICATOR_DELTA
+EMISSIVE_NEG=5,0,0
+EMISSIVE_POS=0,5,0
+EMISSIVE_BASE=5,5,5
+
+- has same function as Delta App
+EMISSIVE_NEG - this is color that mesh will shine when lacking time
+EMISSIVE_POS - this is color that mesh will shine when gaining time
+EMISSIVE_BASE - base color of the mesh
+
+- LED single Fuel value
+
+[FUEL_n]
+OBJECT_NAME=FUEL_LED_x
+FUEL_SWITCH=5
+
+FUEL_SWITCH - this is number in liters when mesh will be turned OFF
+
+- Water temperature Analog/Digital
+
+[WATER_TEMP_n]
+PREFIX=WATER_LED_
+START_TEMP=50
+END_TEMP=130
+LED_COUNT=20
+
+START_TEMP - temperature in C°, when first LED will start shining
+END_TEMP - temperature in C°, when all LEDs will shine
+LED_COUNT - number of LEDs with PREFIX name and numeral suffix
+
+- Turbo Analog/Digital
+
+[TURBO_BOOST_SERIE_n]
+PREFIX=TURBO_TAG_
+START_INDEX=0
+END_INDEX=10
+BOOST_START=0
+BOOST_END=1.50
+
+BOOST_START - when LED's will start showing boost
+BOOST_END - when all LED's will shine
+
+- KERS charge - battery level %
+
+[KERS_CHARGE_SERIE_n]
+PREFIX=LED_CHARGE_
+START_INDEX=0
+END_INDEX=10
+
+- KERS usage - amount of energy used
+
+[KERS_INPUT_SERIE_n]
+PREFIX=LED_KERS_
+START_INDEX=1
+END_INDEX=10
+INVERTED=0
+
+INVERTED - if it is inverted or not (0 or 1)
+
+- KERS max usage per lap
+
+[KERS_LOAD_SERIE_n]
+PREFIX=LED_
+START_INDEX=0
+END_INDEX=10
+INVERTED=1
+PERC_START=5
+PERC_END=100
+ADD_LED=0
+
+INVERTED - inverted shine function of ON/OFF
+PERC_START - starting percentage for counting
+PERC_END - when all of allowed KERS is used
+ADD_LED - not known to me
+
+- DRS LED warning
+
+[DRS_AVAILABLE_n]
+OBJECT_NAME=LED_DRS_x
+EMISSIVE=0,0,255
+DIFFUSE=0.1
+
+- DRS On/Off LED
+
+[DRS_ENABLED_n]
+OBJECT_NAME=LED_DRS_x
+EMISSIVE=255,255,0
+DIFFUSE=0.1
+BLINK_TIME=0
+
+BLINK_TIME - if you make it higher than 0, it will only react to when you push the DRS button and then it disappears after the time specified (sec), it doesn't stay on while the wing is open
+
+- DRS level - wing °
+
+
+[DRS_SERIE_n]
+PREFIX=DRS_TAG_
+START_ANGLE=0
+END_ANGLE=25
+LED_COUNT=10
+WING_NUMBER=2
+INVERTED_DRS=0
+
+START_ANGLE - starting angle in ° for the wing
+END_ANGLE - end angle in ° for the wing
+WING_NUMBER - actual wing from aero.ini
+INVERTED_DRS - inverted shine function of ON/OFF
+
+- Gear change indicator
+
+[ITEM_n]
+PARENT=DISPLAY_DATA
+POSITION=0,0,0
+TYPE=GEAR_TX
+WIDTH=0.1
+HEIGHT=0.01
+TEXTURE_BASE=texture.dds
+COLOR=255,255,255,255
+INTENSITY=2.5
+TRIGGER=0
+ITEM_REF=0
+
+TRIGGER - refers to the gear that calls the specific texture (0,1,2...n)
+ITEM_REF - refers to texture number
+
+- G-Force Analog/Digital
+
+[GFORCE_SERIE_n]
+PREFIX=LED_GFORCE_
+START_INDEX=0
+END_INDEX=10
+FORCE_START=0
+FORCE_END=2
+DIRECTION=X (Z, Y)
+SIGN=1
+
+FORCE_START - when LED will start shine
+FORCE_END - when all LED will shine
+DIRECTION - direction in which is G-Force shown (X-left<>right, Z-fornt<>rear, Y-up<>down)
+SIGN - for 1 it only shows positive values, for -1 it only shows negative values
+
+
+- Digital Speed in Sequence
+
+[SPEED_SERIE_n]
+PREFIX=TAG_SPEED_
+START_SPEED=0
+END_SPEED=350
+LED_COUNT=10
+
+
+ABS Tyre Lock
+
+[TYRE_LOCK_SLIP_n]
+OBJECT_NAME=LED_0 ; object name
+TYRE_INDEX=3 ; 0 (LF), 1 (RF), 2 (LR), 3 (RR)
+EMISSIVE=0,0,50 ; emissive when slip
+EMISSIVE_LOCK=0,0,0 ; emissive when lock
+DIFFUSE=0.42
+SLIP_SWITCH=0.97 ; sensitivity - 1.00=suspension app showing red, recommended value is 0.96-0.99, depending on how sensitive you want it (the lower the more sensitive)
+SHOW_LOCK=0 ; 0=lock disabled, 1=lock enabled
+WHEEL_SPEED_MULT=0.68 ; wheel speed vs. ground speed, to determine sensitivity of lock display (the lower the more sensitive), recommended value 0.6-0.7
+
+
+- P2P dynamic counter
+
+[ITEM_n]
+PARENT=DISPLAY_DATA
+POSITION=-0.061,0.0125,0
+TYPE=P2P_DASH
+SIZE=0.008
+COLOR=255,255,255
+INTENSITY=2
+COLOR_ACTIVE=0,0,255
+INTENSITY_ACTIVE=2
+COLOR_COOLING=255,0,0
+INTENSITY_COOLING=2
+VERSION=2
+FONT=your_font
+ALIGN=RIGHT
+
+
+
+
+- Series RPM blink switch
+
+[RPM_SERIE_n]
+PREFIX=RPM_LIMITER_
+START_INDEX=1
+END_INDEX=2
+RPM_START=8600
+RPM_END=9500
+BLINK_SWITCH=8700 ; not mandatory line
+BLINK_HZ=5 ; not mandatory line
+
+
+- Fuel in percentage
+
+[ITEM_n]
+PARENT=DISPLAY_DATA
+POSITION=0.001, -0.031, 0.0
+TYPE=FUEL_PERC
+SIZE=0.006
+PREFIX=
+POSTFIX=%
+COLOR=255,255,255,255
+INTENSITY=2.5
+FONT=your_font
+VERSION=2
+ALIGN=RIGHT
+DECIMALS=0
